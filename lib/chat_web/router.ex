@@ -2,7 +2,7 @@ defmodule ChatWeb.Router do
   use ChatWeb, :router
 
   pipeline :browser do
-    plug :accepts, ["html"]
+    plug :accepts, ["html", "text"]
     plug :fetch_session
     plug :fetch_flash
     plug :protect_from_forgery
@@ -17,6 +17,7 @@ defmodule ChatWeb.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
+    get "/test", PageController, :test
   end
 
   # Other scopes may use custom stacks.
