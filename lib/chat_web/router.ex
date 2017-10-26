@@ -16,7 +16,7 @@ defmodule ChatWeb.Router do
   scope "/", ChatWeb do
     pipe_through :browser # Use the default browser stack
 
-    get "/", PageController, :index
+    get "/chat", PageController, :index
     get "/test", PageController, :test
     resources "/users", UserController
     resources "/sessions", SessionController, only: [:new, :create, :delete],
@@ -27,6 +27,13 @@ defmodule ChatWeb.Router do
     pipe_through [:browser, :authenticate_user]
 
     resources "/pages", PageController
+  end
+
+  scope "/auth", ChatWeb do
+    pipe_through :browser
+
+    get "/:provider", AuthController, :request
+    get "/:provider/callback", AuthController, :callback
   end
 
   # Other scopes may use custom stacks.
